@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NEXUS Dashboard</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            #173b7a 0,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 85%,
+            #32145c 0,
+            transparent 35%
+        ),
+        #070b16;
+
+    color: #fff;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: #00eaff;
+}
+
+.menu {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    border: 1px solid #294064;
+
+    background: rgba(20, 30, 52, 0.7);
+
+    font-size: 25px;
+
+    transition: 0.25s;
+}
+
+.menu:hover {
+    background: #172742;
+    transform: scale(1.05);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    padding: 28px;
+
+    border-radius: 27px;
+
+    border: 1px solid #294268;
+
+    background: rgba(15, 23, 42, 0.78);
+
+    backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25);
+
+    margin-bottom: 18px;
+}
+
+.small {
+    color: #8190a9;
+
+    font-size: 14px;
+
+    margin-bottom: 12px;
+
+    letter-spacing: 0.5px;
+}
+
+.hero h1 {
+    font-size: clamp(30px, 7vw, 46px);
+
+    line-height: 1.2;
+
+    margin-bottom: 18px;
+}
+
+.hero h1 span {
+    color: #00eaff;
+}
+
+.hero p {
+    color: #909db5;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+
+    max-width: 650px;
+}
+
+.clock {
+    margin-top: 22px;
+
+    font-size: clamp(30px, 8vw, 45px);
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+.card {
+    padding: 20px;
+
+    border-radius: 22px;
+
+    border: 1px solid #273b5e;
+
+    background: rgba(15, 23, 42, 0.72);
+
+    transition: 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+
+    border-color: #00bcd4;
+}
+
+.icon {
+    font-size: 25px;
+
+    margin-bottom: 15px;
+}
+
+.number {
+    font-size: 27px;
+
+    font-weight: bold;
+}
+
+.label {
+    color: #7f8da6;
+
+    font-size: 12px;
+
+    margin-top: 6px;
+
+    letter-spacing: 0.5px;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section {
+    padding: 23px;
+
+    border-radius: 24px;
+
+    border: 1px solid #273b5e;
+
+    background: rgba(15, 23, 42, 0.72);
+
+    margin-bottom: 18px;
+}
+
+.section-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 22px;
+}
+
+.section-title h2 {
+    font-size: 20px;
+}
+
+.section-title span {
+    color: #00eaff;
+
+    font-size: 14px;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress-box {
+    margin-bottom: 20px;
+}
+
+.progress-box:last-child {
+    margin-bottom: 0;
+}
+
+.progress-info {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 14px;
+
+    margin-bottom: 9px;
+}
+
+.progress-info span:last-child {
+    color: #00eaff;
+}
+
+.progress {
+    width: 100%;
+
+    height: 10px;
+
+    background: #17243a;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.bar {
+    height: 100%;
+
+    width: 0;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00eaff,
+            #4d8cff,
+            #7c4dff
+        );
+
+    transition:
+        width 1.5s ease;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+button {
+    border: 0;
+
+    padding: 16px;
+
+    border-radius: 17px;
+
+    color: white;
+
+    background: #17243d;
+
+    border: 1px solid #2a3d61;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+
+    background: #203252;
+
+    border-color: #3d5985;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+button.primary {
+    background:
+        linear-gradient(
+            135deg,
+            #00bcd4,
+            #5865f2
+        );
+
+    border: none;
+}
+
+/* =========================
+   ACTIVITY
+========================= */
+
+.activity {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #1b2941;
+}
+
+.activity:last-child {
+    border-bottom: none;
+}
+
+.dot {
+    width: 11px;
+
+    height: 11px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #00eaff;
+
+    box-shadow:
+        0 0 12px #00eaff;
+}
+
+.activity-text {
+    flex: 1;
+}
+
+.activity-text b {
+    font-size: 14px;
+}
+
+.activity-text p {
+    color: #71809a;
+
+    font-size: 12px;
+
+    margin-top: 4px;
+}
+
+.time {
+    color: #687791;
+
+    font-size: 11px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    text-align: center;
+
+    color: #59677f;
+
+    font-size: 12px;
+
+    padding: 5px 0 20px;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 25px;
+
+    transform:
+        translate(-50%, 100px);
+
+    background: #101a2c;
+
+    border: 1px solid #2b4169;
+
+    padding: 14px 20px;
+
+    border-radius: 15px;
+
+    color: white;
+
+    opacity: 0;
+
+    transition: 0.35s;
+
+    z-index: 99;
+
+    white-space: nowrap;
+}
+
+.toast.show {
+    transform:
+        translate(-50%, 0);
+
+    opacity: 1;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 14px;
+    }
+
+    .hero {
+        padding: 22px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .stats {
+        gap: 8px;
+    }
+
+    .card {
+        padding: 15px 11px;
+    }
+
+    .number {
+        font-size: 22px;
+    }
+
+    .section {
+        padding: 20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            NEX<span>US</span>
+        </div>
+
+        <div class="menu">
+            ☰
+        </div>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="small">
+            MONDAY • 05 OCTOBER 2026
+        </div>
+
+        <h1>
+            Good Morning! 👋
+        </h1>
+
+        <p>
+            Welcome back to your personal dashboard.
+            Keep building something awesome today.
+        </p>
+
+        <div
+            class="clock"
+            id="clock"
+        >
+            00:00:00
+        </div>
+
+    </section>
+
+
+    <!-- STATISTICS -->
+
+    <section class="stats">
+
+        <div class="card">
+
+            <div class="icon">
+                ⚡
+            </div>
+
+            <div class="number">
+                87%
+            </div>
+
+            <div class="label">
+                ENERGY
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+                🎯
+            </div>
+
+            <div class="number">
+                12
+            </div>
+
+            <div class="label">
+                TASKS
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+                🔥
+            </div>
+
+            <div class="number">
+                7
+            </div>
+
+            <div class="label">
+                STREAK
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROGRESS -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                Today's Progress
+            </h2>
+
+            <span>
+                75%
+            </span>
+
+        </div>
+
+
+        <div class="progress-box">
+
+            <div class="progress-info">
+
+                <span>
+                    Learning
+                </span>
+
+                <span>
+                    90%
+                </span>
+
+            </div>
+
+            <div class="progress">
+
+                <div
+                    class="bar"
+                    data-width="90%"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-box">
+
+            <div class="progress-info">
+
+                <span>
+                    Projects
+                </span>
+
+                <span>
+                    72%
+                </span>
+
+            </div>
+
+            <div class="progress">
+
+                <div
+                    class="bar"
+                    data-width="72%"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-box">
+
+            <div class="progress-info">
+
+                <span>
+                    Gaming
+                </span>
+
+                <span>
+                    63%
+                </span>
+
+            </div>
+
+            <div class="progress">
+
+                <div
+                    class="bar"
+                    data-width="63%"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- QUICK ACTION -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                Quick Action
+            </h2>
+
+            <span>
+                4 actions
+            </span>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button
+                class="primary"
+                onclick="showToast('🚀 Project started!')"
+            >
+                🚀 Start Project
+            </button>
+
+
+            <button
+                onclick="showToast('📚 Keep learning!')"
+            >
+                📚 Learn
+            </button>
+
+
+            <button
+                onclick="showToast('🎮 Gaming mode activated!')"
+            >
+                🎮 Gaming
+            </button>
+
+
+            <button
+                onclick="showToast('⚙️ Settings opened!')"
+            >
+                ⚙️ Settings
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACTIVITY -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                Recent Activity
+            </h2>
+
+            <span>
+                Live
+            </span>
+
+        </div>
+
+
+        <div class="activity">
+
+            <div class="dot"></div>
+
+            <div class="activity-text">
+
+                <b>
+                    Website project updated
+                </b>
+
+                <p>
+                    Homepage design completed
+                </p>
+
+            </div>
+
+            <div class="time">
+                08:21
+            </div>
+
+        </div>
+
+
+        <div class="activity">
+
+            <div class="dot"></div>
+
+            <div class="activity-text">
+
+                <b>
+                    Learning session
+                </b>
+
+                <p>
+                    HTML & CSS practice
+                </p>
+
+            </div>
+
+            <div class="time">
+                07:45
+            </div>
+
+        </div>
+
+
+        <div class="activity">
+
+            <div class="dot"></div>
+
+            <div class="activity-text">
+
+                <b>
+                    Daily streak continued
+                </b>
+
+                <p>
+                    7 days in a row 🔥
+                </p>
+
+            </div>
+
+            <div class="time">
+                07:10
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        Made with ❤️ & code • NEXUS Dashboard
+    </footer>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+/* =========================
+   REAL-TIME CLOCK
+========================= */
+
+function updateClock() {
+
+    const now = new Date();
+
+    const hours =
+        String(
+            now.getHours()
+        ).padStart(2, "0");
+
+    const minutes =
+        String(
+            now.getMinutes()
+        ).padStart(2, "0");
+
+    const seconds =
+        String(
+            now.getSeconds()
+        ).padStart(2, "0");
+
+
+    document.getElementById(
+        "clock"
+    ).textContent =
+        `${hours}:${minutes}:${seconds}`;
+}
+
+
+setInterval(
+    updateClock,
+    1000
+);
+
+updateClock();
+
+
+/* =========================
+   PROGRESS ANIMATION
+========================= */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        const bars =
+            document.querySelectorAll(
+                ".bar"
+            );
+
+        bars.forEach(
+            (bar, index) => {
+
+                setTimeout(
+                    () => {
+
+                        bar.style.width =
+                            bar.dataset.width;
+
+                    },
+                    300 + index * 150
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================
+   TOAST NOTIFICATION
+========================= */
+
+let toastTimer;
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2200
+        );
+
+}
+
+</script>
+
+</body>
+</html>
